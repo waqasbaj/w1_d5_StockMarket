@@ -40,6 +40,47 @@ function maxProfit(arr)
 function maxStockMarket(input)
 
 {
+  var array = maxInArray(input);
+
+  var inDay = array[1];
+
+  var inPrice = array[2];
+
+  var outDay = array[3];
+
+  var outPrice = array[4];
+
+  var maxOutProfit = array[5];
+
+
+  while(array[0].length>0)
+  {
+    output = maxInArray(array[0]);
+
+    if(maxOutProfit< output[5])
+    {
+
+        inDay = output[1];
+
+        inPrice = output[2];
+
+        outDay = output[3];
+
+        outPrice = output[4];
+
+        maxOutProfit = output[5];
+
+    }
+
+    array = output;
+
+  }
+console.log("max profit is :", maxOutProfit, "Date to buy is: ", inDay, "Date to sell is: ", outDay );
+
+}
+
+
+function maxInArray(input){
 
 var minOut= input[0];
 
@@ -72,71 +113,17 @@ var maxDay=input.length-1;
 
   }
 
-  var profit = maxOut- minOut;
+  var output =[];
 
-  console.log(profit, minDay, maxDay, maxOut, minOut);
+  input.length = minDay;
 
-  input.length = minDay+1;
+  var maxProfit = maxOut - minOut;
 
-  var newminOut= input[0];
+  output.push(input, minDay+1, minOut, maxDay+1, maxOut, maxProfit);
 
-  var newminDay=0;
-
-  var newmaxOut=input[input.length-1];
-
-  var newmaxDay=input.length-1;
-
-
-
-
-
-
-  for(a=input.length-1; a>0; a--)
-  {
-    if(newmaxOut < input[a])
-    {
-      newmaxOut = input[a];
-
-      newmaxDay = a;
-    }
-  }
-
-
-
-  for(b=newmaxDay; b>0; b--)
-  {
-    if(newminOut > input[b])
-    {
-      newminOut = input[b];
-
-      newminDay = b;
-    }
-
-  }
-
-  var newmaxProfit = newmaxOut - newminOut;
-
-
-
-  console.log(newmaxProfit, newminDay, newmaxDay, newmaxOut, newminOut);
-
-  if(newmaxProfit > profit)
-
-  {
-
-    console.log("max profit is :", newmaxProfit, "Date to buy is: ", (newminDay+1), "Date to sell is: ", (newmaxDay+1));
-  }
-
-  else
-  {
-    console.log("max profit is :", profit, "Date to buy is: ", (minDay+1), "Date to sell is: ", (maxDay+1));
-
-  }
-
-
-
+  return output;
 }
 
 
 
-maxStockMarket([45, 24, 35, 31, 40, 38, 11, 2 , 5, 100]);
+maxStockMarket([45, 24, 0, 31, 40, 38, 11, 2 , 5, 100, 0 , 10, 20 , 30, 40, 50 , 60 ,70, 80, 900, 100]);
